@@ -5,7 +5,7 @@ package application.model.bank;
 import application.model.exceptions.FundsException;
 import application.model.exceptions.PaymentRefusedException;
 import application.model.serviceCenter.RecipientOfService;
-import javafx.beans.property.SimpleStringProperty;
+import application.util.MySimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.io.Serializable;
@@ -16,9 +16,8 @@ import java.util.Random;
 public class Bank implements Serializable {
 
     private final StringProperty name;
-    private final int bankPrefix;
+    private final int bankPrefix = new Random().nextInt(90000) + 10000;
     private ArrayList<Customer> customers = new ArrayList<>();
-    private static int nextBankPrefix = 1000;
 
     public int getBankPrefix() {
         return bankPrefix;
@@ -53,9 +52,7 @@ public class Bank implements Serializable {
     }
 
     public Bank(String name) {
-        this.name = new SimpleStringProperty(name);
-        bankPrefix = nextBankPrefix;
-        nextBankPrefix++;
+        this.name = new MySimpleStringProperty(name);
     }
 
     public void chargeCard(int cardNumber, BigDecimal amount, RecipientOfService requester)

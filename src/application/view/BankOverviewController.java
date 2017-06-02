@@ -72,7 +72,7 @@ public class BankOverviewController {
      * details for a new bank.
      */
     @FXML
-    private void handleNewPerson() {
+    private void handleNewBank() {
         Bank tmpBank = new Bank();
         boolean okClicked = mainApp.showBankEditDialog(tmpBank);
         if (okClicked) {

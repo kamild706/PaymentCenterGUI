@@ -11,11 +11,25 @@ public class MySimpleStringProperty extends SimpleStringProperty implements Seri
      * Contains names of serialized fields.
      */
     private static final ObjectStreamField[] serialPersistentFields = {
-            new ObjectStreamField("name", String.class),
+            new ObjectStreamField("name", String.class)
     };
 
-    private void writeObject(ObjectOutputStream out) throws IOException
-    {
+    public MySimpleStringProperty() {
+    }
+
+    public MySimpleStringProperty(String initialValue) {
+        super(initialValue);
+    }
+
+    public MySimpleStringProperty(Object bean, String name) {
+        super(bean, name);
+    }
+
+    public MySimpleStringProperty(Object bean, String name, String initialValue) {
+        super(bean, name, initialValue);
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
         ObjectOutputStream.PutField fields = out.putFields();
 
         fields.put("name", get());
@@ -23,15 +37,13 @@ public class MySimpleStringProperty extends SimpleStringProperty implements Seri
         out.writeFields();
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException
-    {
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream.GetField fields = in.readFields();
         set((String) fields.get("name", ""));
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("{name: %s}", get());
     }
 

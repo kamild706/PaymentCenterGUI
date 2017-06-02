@@ -13,8 +13,8 @@ public class CreditCard extends Card implements Serializable {
 
     private Loan loan;
 
-    public CreditCard(Currencies currency, int prefix) {
-        super(prefix);
+    public CreditCard(Currencies currency, int prefix, int number) {
+        super(prefix, number);
         loan = new Loan(new BigDecimal(5000), currency);
     }
 

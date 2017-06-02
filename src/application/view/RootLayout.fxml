@@ -8,35 +8,26 @@
 
 
 <?import javafx.scene.control.Button?>
-<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RootLayoutController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-  <left>
-    <VBox prefHeight="400.0" prefWidth="120.0" >
-      <children>
-        <Button mnemonicParsing="false" prefWidth="120" text="Banki"/>
-        <Button mnemonicParsing="false" prefWidth="120" text="Przedsiębiorcy"/>
-        <Button mnemonicParsing="false" prefWidth="120" text="Transakcje"/>
-      </children>
-    </VBox>
-  </left>
+<BorderPane prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.131"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RootLayoutController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <Menu mnemonicParsing="false" text="File">
+                <MenuItem mnemonicParsing="false" text="Close"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+                <MenuItem mnemonicParsing="false" text="Delete"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="About"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <left>
+        <VBox prefHeight="400.0" prefWidth="120.0">
+            <Button onAction="#handleShowBanks" mnemonicParsing="false" prefWidth="120" text="Banki"/>
+            <Button onAction="#handleShowRoS" mnemonicParsing="false" prefWidth="120" text="Przedsiębiorcy"/>
+            <Button mnemonicParsing="false" prefWidth="120" text="Transakcje"/>
+        </VBox>
+    </left>
 </BorderPane>

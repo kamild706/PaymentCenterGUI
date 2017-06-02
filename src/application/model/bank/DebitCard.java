@@ -13,8 +13,8 @@ public class DebitCard extends Card implements Serializable {
 
     private Account account;
 
-    public DebitCard(Currencies currency, int bankPrefix) {
-        super(bankPrefix);
+    public DebitCard(Currencies currency, int bankPrefix, int number) {
+        super(bankPrefix, number);
         account = new Account(currency);
     }
 

@@ -13,16 +13,14 @@ import java.util.ArrayList;
 public abstract class Card implements Serializable {
 
     private int cardNumber;
-    private static int nextCardCumber = 1000;
     private ArrayList<Transaction> transactions = new ArrayList<>();
 
     public int getCardNumber() {
         return cardNumber;
     }
 
-    public Card(int prefix) {
-        cardNumber = Integer.parseInt(prefix + "" + nextCardCumber);
-        nextCardCumber++;
+    public Card(int prefix, int number) {
+        cardNumber = Integer.parseInt(prefix + "" + number);
     }
 
     public ArrayList<Transaction> getTransactions() {

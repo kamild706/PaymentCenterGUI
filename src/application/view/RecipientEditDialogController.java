@@ -1,19 +1,20 @@
 package application.view;
 
 import application.model.bank.Bank;
+import application.model.serviceCenter.RecipientOfService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
-public class BankEditDialogController {
+public class RecipientEditDialogController {
 
     @FXML
     private TextField nameField;
 
     private Stage dialogStage;
-    private Bank bank;
+    private RecipientOfService recipient;
     private boolean okClicked = false;
 
     /**
@@ -35,12 +36,12 @@ public class BankEditDialogController {
     /**
      * Sets the bank to be edited in the dialog.
      *
-     * @param bank
+     * @param recipient
      */
-    public void setBank(Bank bank) {
-        this.bank = bank;
+    public void setRecipient(RecipientOfService recipient) {
+        this.recipient = recipient;
 
-        nameField.setText(bank.getName());
+        nameField.setText(recipient.getName());
     }
 
     /**
@@ -58,7 +59,7 @@ public class BankEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            bank.setName(nameField.getText());
+            recipient.setName(nameField.getText());
 
             okClicked = true;
             dialogStage.close();

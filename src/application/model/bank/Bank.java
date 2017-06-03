@@ -2,6 +2,7 @@ package application.model.bank;
 
 
 
+import application.model.exceptions.CardNotFoundException;
 import application.model.exceptions.FundsException;
 import application.model.exceptions.PaymentRefusedException;
 import application.util.MySimpleStringProperty;
@@ -58,24 +59,25 @@ public class Bank implements Serializable {
         this.name = new MySimpleStringProperty(name);
     }
 
-    public void chargeCard(int cardNumber, BigDecimal amount)
-            throws FundsException, PaymentRefusedException {
+    public Card chargeCard(String cardNumber, BigDecimal amount)
+            throws FundsException, PaymentRefusedException, CardNotFoundException {
         if (new Random().nextInt(100) + 1 > 20) {
             Card card = findCard(cardNumber);
-            if (card == null) throw new PaymentRefusedException("Card not found");
             card.charge(amount);
+
+            return card;
         }
         else {
             throw new PaymentRefusedException("Bank has refused transaction");
         }
     }
 
-    public Card findCard(int cardNumber) {
+    public Card findCard(String cardNumber) throws CardNotFoundException {
         for (Customer customer : customers) {
             for (Card card : customer.getCards())
-                if (card.getCardNumber() == cardNumber) return card;
+                if (card.getCardNumber().equals(cardNumber)) return card;
         }
 
-        return null;
+        throw new CardNotFoundException("Card of ID " + cardNumber + " does not exists");
     }
 }

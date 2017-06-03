@@ -49,7 +49,7 @@
             </GridPane>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
-                    <Button mnemonicParsing="false" prefWidth="150" text="Pokaż karty"/>
+                    <Button mnemonicParsing="false" onAction="#handleShowCards" prefWidth="150" text="Pokaż karty"/>
                     <Button mnemonicParsing="false" onAction="#handleNewCustomer" prefWidth="150" text="Dodaj nowy"/>
                     <Button mnemonicParsing="false" onAction="#handleEditCustomer" prefWidth="150" text="Edytuj"/>
                     <Button mnemonicParsing="false" onAction="#handleDeleteCustomer" prefWidth="150" text="Usuń"/>

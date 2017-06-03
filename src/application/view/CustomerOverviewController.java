@@ -94,6 +94,23 @@ public class CustomerOverviewController {
     }
 
     @FXML
+    private void handleShowCards() {
+        Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer != null) {
+            mainApp.showCardOverview(selectedCustomer);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Brak zaznaczenia");
+            alert.setHeaderText("Żaden klient nie został zaznaczony");
+            alert.setContentText("Zaznacz właściwego klienta w tabeli");
+
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
     private void handleEditCustomer() {
         Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer != null) {

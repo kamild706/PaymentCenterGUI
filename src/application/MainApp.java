@@ -1,12 +1,16 @@
 package application;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import application.model.bank.Bank;
+import application.model.bank.Card;
 import application.model.bank.Customer;
+import application.model.exceptions.CardNotFoundException;
+import application.model.exceptions.FundsException;
+import application.model.exceptions.PaymentRefusedException;
 import application.model.serviceCenter.RecipientOfService;
-import application.model.serviceCenter.Shop;
 import application.model.serviceCenter.Transaction;
 import application.view.*;
 import javafx.application.Application;
@@ -48,15 +52,19 @@ public class MainApp extends Application {
     private void readObjects() {
         try {
             FileInputStream fin1 = new FileInputStream(DATABASE_PATH + "banks.stored");
-            FileInputStream fin2 = new FileInputStream(DATABASE_PATH + "recipients.stored");
-
             ObjectInputStream ois = new ObjectInputStream(fin1);
             ArrayList<Bank> list1 = (ArrayList<Bank>) ois.readObject();
             bankData = FXCollections.observableArrayList(list1);
 
+            FileInputStream fin2 = new FileInputStream(DATABASE_PATH + "recipients.stored");
             ois = new ObjectInputStream(fin2);
             ArrayList<RecipientOfService> list2 = (ArrayList<RecipientOfService>) ois.readObject();
             recipientData = FXCollections.observableArrayList(list2);
+
+            FileInputStream fin3 = new FileInputStream(DATABASE_PATH + "transactions.stored");
+            ois = new ObjectInputStream(fin3);
+            ArrayList<Transaction> list3 = (ArrayList<Transaction>) ois.readObject();
+            transactionData = FXCollections.observableArrayList(list3);
         }
         catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -67,12 +75,16 @@ public class MainApp extends Application {
         try {
             FileOutputStream fout1 = new FileOutputStream(DATABASE_PATH + "banks.stored");
             FileOutputStream fout2 = new FileOutputStream(DATABASE_PATH + "recipients.stored");
+            FileOutputStream fout3 = new FileOutputStream(DATABASE_PATH + "transactions.stored");
 
             ObjectOutputStream oos = new ObjectOutputStream(fout1);
             oos.writeObject(new ArrayList<Bank>(bankData));
 
             oos = new ObjectOutputStream(fout2);
             oos.writeObject(new ArrayList<RecipientOfService>(recipientData));
+
+            oos = new ObjectOutputStream(fout3);
+            oos.writeObject(new ArrayList<Transaction>(transactionData));
 
             oos.close();
         }
@@ -105,7 +117,6 @@ public class MainApp extends Application {
     }
 
 
-
     /**
      * Shows the bank overview inside the root layout.
      */
@@ -135,6 +146,23 @@ public class MainApp extends Application {
             controller.setMainApp(this);
             controller.setBank(bank);
             controller.addCustomers(FXCollections.observableArrayList(bank.getCustomers()));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCardOverview(Customer customer) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardOverview.fxml"));
+            AnchorPane cardOverview = loader.load();
+            rootLayout.setCenter(cardOverview);
+
+            CardOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setCustomer(customer);
+            controller.addCards(FXCollections.observableArrayList(customer.getCards()));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -218,6 +246,69 @@ public class MainApp extends Application {
         }
     }
 
+    public boolean showCardEditDialog(Card card) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj kartę");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            CardEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCard(card);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showCardChargeDialog(RecipientOfService recipient) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CardChargeDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Obciąż kartę");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            CardChargeDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setRecipient(recipient);
+            controller.setMainApp(this);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean showRecipientEditDialog(RecipientOfService recipient) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -272,5 +363,33 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void chargeCard(String cardNumber, String money, RecipientOfService ros)
+            throws CardNotFoundException, FundsException, PaymentRefusedException {
+        try {
+            Bank bank = findBank(cardNumber);
+            Card card = bank.chargeCard(cardNumber, new BigDecimal(money));
+            Transaction transaction = new Transaction(new BigDecimal(money), ros, card);
+            transactionData.add(transaction);
+        }
+        catch (CardNotFoundException | FundsException | PaymentRefusedException e) {
+            throw e;
+        }
+    }
+
+
+    private Bank findBank(String cardNumber) throws CardNotFoundException {
+        for (Bank bank : bankData) {
+            for (Customer customer : bank.getCustomers()) {
+                for (Card card : customer.getCards()) {
+                    if (card.getCardNumber().equals(cardNumber)) {
+                        return bank;
+                    }
+                }
+            }
+        }
+
+        throw new CardNotFoundException("Card of ID " + cardNumber + " does not exists");
     }
 }

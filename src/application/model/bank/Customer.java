@@ -68,4 +68,8 @@ public class Customer implements Serializable {
     public void setPesel(String pesel) {
         this.pesel.set(pesel);
     }
+
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
 }

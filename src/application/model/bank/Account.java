@@ -11,6 +11,14 @@ public class Account implements Serializable {
     private BigDecimal balance;
     private Currency currency;
 
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void setCurrency(Currencies currency) {
+        this.currency = new Currency(currency);
+    }
+
     public Account(Currencies currency) {
         this.currency = new Currency(currency);
         balance = new BigDecimal(0);

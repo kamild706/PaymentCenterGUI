@@ -45,6 +45,7 @@
             </GridPane>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
+                    <Button mnemonicParsing="false" onAction="#handleChargeCard" prefWidth="150" text="Wykonaj transakcje"/>
                     <Button mnemonicParsing="false" onAction="#handleNewRecipient" prefWidth="150" text="Dodaj nowy"/>
                     <Button mnemonicParsing="false" onAction="#handleEditRecipient" prefWidth="150" text="Edytuj"/>
                     <Button mnemonicParsing="false" onAction="#handleDeleteRecipient" prefWidth="150" text="Usuń"/>

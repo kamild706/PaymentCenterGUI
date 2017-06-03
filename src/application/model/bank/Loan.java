@@ -19,6 +19,10 @@ public class Loan implements Serializable {
         this.currency = new Currency(currency);
     }
 
+    public void setCurrency(Currencies currency) {
+        this.currency = new Currency(currency);
+    }
+
     public void setLoan(BigDecimal loan) {
         this.loan = loan;
     }
@@ -50,5 +54,9 @@ public class Loan implements Serializable {
 
     public BigDecimal getLoan() {
         return loan;
+    }
+
+    public String getCurrencySymbol() {
+        return currency.getSymbol();
     }
 }

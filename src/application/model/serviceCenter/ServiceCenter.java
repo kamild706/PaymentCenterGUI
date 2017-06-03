@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ServiceCenter implements Serializable {
 
-    private ArrayList<Bank> banks = new ArrayList<>();
+    /*private ArrayList<Bank> banks = new ArrayList<>();
     private ArrayList<RecipientOfService> recipients = new ArrayList<>();
 
     public ArrayList<Bank> getBanks() {
@@ -54,6 +54,6 @@ public class ServiceCenter implements Serializable {
 
     public void createCustomer() {}
 
-    public void createCard() {}
+    public void createCard() {}*/
 
 }

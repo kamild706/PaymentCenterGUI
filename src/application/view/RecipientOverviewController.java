@@ -1,6 +1,7 @@
 package application.view;
 
 import application.MainApp;
+import application.model.bank.Card;
 import application.model.serviceCenter.RecipientOfService;
 import application.model.serviceCenter.ServiceWorkshop;
 import application.model.serviceCenter.Shop;
@@ -53,6 +54,26 @@ public class RecipientOverviewController {
             nameLabel.setText("");
             idLabel.setText("");
             typeLabel.setText("");
+        }
+    }
+
+    @FXML
+    private void handleChargeCard() {
+        RecipientOfService recipientSelected = recipientsTable.getSelectionModel().getSelectedItem();
+        if (recipientSelected != null) {
+            boolean okClicked = mainApp.showCardChargeDialog(recipientSelected);
+            if (okClicked) {
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Brak zaznaczenia");
+            alert.setHeaderText("Żaden bank nie został zaznaczony");
+            alert.setContentText("Zaznacz właściwy bank w tabeli");
+
+            alert.showAndWait();
         }
     }
 

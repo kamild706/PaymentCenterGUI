@@ -13,22 +13,19 @@ public class DebitCard extends Card implements Serializable {
 
     private Account account;
 
-    public DebitCard(Currencies currency, int bankPrefix, int number) {
-        super(bankPrefix, number);
+    public DebitCard(Currencies currency, int bankPrefix, int number, Customer owner) {
+        super(bankPrefix, number, owner);
         account = new Account(currency);
     }
 
     @Override
-    public void charge(BigDecimal amount, RecipientOfService requester) throws AccountBalanceException {
-        Transaction transaction = new Transaction(amount, requester);
-
+    public void charge(BigDecimal amount) throws AccountBalanceException {
         try {
             account.charge(amount);
         }
         catch (AccountBalanceException e) {
             throw e;
         }
-        addTransaction(transaction);
     }
 
     public void deposit(BigDecimal money) {

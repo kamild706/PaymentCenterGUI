@@ -84,6 +84,24 @@ public class BankOverviewController {
      * Called when the user clicks the edit button. Opens a dialog to edit
      * details for the selected person.
      */
+
+    @FXML
+    private void handleShowCustomers() {
+        Bank selectedBank = bankTable.getSelectionModel().getSelectedItem();
+        if (selectedBank != null) {
+            mainApp.showCustomerOverview(selectedBank);
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Brak zaznaczenia");
+            alert.setHeaderText("Żaden bank nie został zaznaczony");
+            alert.setContentText("Zaznacz właściwy bank w tabeli");
+
+            alert.showAndWait();
+        }
+    }
+
     @FXML
     private void handleEditBank() {
         Bank selectedBank = bankTable.getSelectionModel().getSelectedItem();
@@ -93,7 +111,8 @@ public class BankOverviewController {
                 showBankDetails(selectedBank);
             }
 
-        } else {
+        }
+        else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());

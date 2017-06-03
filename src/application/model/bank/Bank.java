@@ -4,7 +4,6 @@ package application.model.bank;
 
 import application.model.exceptions.FundsException;
 import application.model.exceptions.PaymentRefusedException;
-import application.model.serviceCenter.RecipientOfService;
 import application.util.MySimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -47,6 +46,10 @@ public class Bank implements Serializable {
         customers.add(customer);
     }
 
+    public void setCustomers(ArrayList<Customer> customers) {
+        this.customers = customers;
+    }
+
     public Bank() {
         this(null);
     }
@@ -55,12 +58,12 @@ public class Bank implements Serializable {
         this.name = new MySimpleStringProperty(name);
     }
 
-    public void chargeCard(int cardNumber, BigDecimal amount, RecipientOfService requester)
+    public void chargeCard(int cardNumber, BigDecimal amount)
             throws FundsException, PaymentRefusedException {
         if (new Random().nextInt(100) + 1 > 20) {
             Card card = findCard(cardNumber);
             if (card == null) throw new PaymentRefusedException("Card not found");
-            card.charge(amount, requester);
+            card.charge(amount);
         }
         else {
             throw new PaymentRefusedException("Bank has refused transaction");

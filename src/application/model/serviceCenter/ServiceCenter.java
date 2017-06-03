@@ -31,11 +31,11 @@ public class ServiceCenter implements Serializable {
         recipients.add(recipient);
     }
 
-    public void chargeCard(int cardNumber, BigDecimal amount, RecipientOfService requester) {
+    public void chargeCard(int cardNumber, BigDecimal amount) {
         Bank bank = findBank(String.valueOf(cardNumber));
         if (bank != null) {
             try {
-                bank.chargeCard(cardNumber, amount, requester);
+                bank.chargeCard(cardNumber, amount);
             }
             catch (FundsException | PaymentRefusedException e) {
                 e.printStackTrace();

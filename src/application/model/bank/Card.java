@@ -13,23 +13,20 @@ import java.util.ArrayList;
 public abstract class Card implements Serializable {
 
     private int cardNumber;
-    private ArrayList<Transaction> transactions = new ArrayList<>();
+    private Customer cardOwner;
 
     public int getCardNumber() {
         return cardNumber;
     }
 
-    public Card(int prefix, int number) {
+    public Customer getCardOwner() {
+        return cardOwner;
+    }
+
+    public Card(int prefix, int number, Customer owner) {
+        cardOwner = owner;
         cardNumber = Integer.parseInt(prefix + "" + number);
     }
 
-    public ArrayList<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-    }
-
-    public abstract void charge(BigDecimal amount, RecipientOfService requester) throws FundsException;
+    public abstract void charge(BigDecimal amount) throws FundsException;
 }

@@ -1,45 +1,31 @@
 package application.view;
 
-import application.model.bank.Bank;
-import application.model.serviceCenter.RecipientOfService;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
+import application.model.bank.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class RecipientEditDialogController {
-
+/**
+ * Created by kamil on 6/3/17.
+ */
+public class CustomerEditDialogController {
     @FXML
-    public ListView typesList;
+    private TextField peselField;
     @FXML
     private TextField nameField;
+    @FXML
+    private TextField lastnameField;
 
     private Stage dialogStage;
-    private RecipientOfService recipient;
+    private Customer customer;
     private boolean okClicked = false;
-
-    private ListProperty<String> listProperty = new SimpleListProperty<>();
-    private List<String> types = new ArrayList<>();
 
     /**
      * Initializes the controller class.
      */
     @FXML
     private void initialize() {
-        types.add("Sklep");
-        types.add("Zakład usług");
-        types.add("Firma transportowa");
-
-        typesList.itemsProperty().bind(listProperty);
-        listProperty.set(FXCollections.observableArrayList(types));
     }
 
     /**
@@ -52,14 +38,16 @@ public class RecipientEditDialogController {
     }
 
     /**
-     * Sets the bank to be edited in the dialog.
+     * Sets the customer to be edited in the dialog.
      *
-     * @param recipient
+     * @param customer
      */
-    public void setRecipient(RecipientOfService recipient) {
-        this.recipient = recipient;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
 
-        nameField.setText(recipient.getName());
+        nameField.setText(customer.getName());
+        lastnameField.setText(customer.getLastname());
+        peselField.setText(customer.getPesel());
     }
 
     /**
@@ -77,8 +65,10 @@ public class RecipientEditDialogController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            recipient.setName(nameField.getText());
-            recipient.setTypeID(typesList.getSelectionModel().getSelectedIndex());
+            customer.setName(nameField.getText());
+            customer.setLastname(lastnameField.getText());
+            customer.setPesel(peselField.getText());
+
             okClicked = true;
             dialogStage.close();
         }
@@ -101,7 +91,13 @@ public class RecipientEditDialogController {
         String errorMessage = "";
 
         if (nameField.getText() == null || nameField.getText().length() == 0) {
-            errorMessage += "Nieprawidłowa nazwa!\n";
+            errorMessage += "Nieprawidłowe imię!\n";
+        }
+        if (lastnameField.getText() == null || lastnameField.getText().length() == 0) {
+            errorMessage += "Nieprawidłowe nazwisko!\n";
+        }
+        if (peselField.getText() == null || peselField.getText().length() == 0) {
+            errorMessage += "Nieprawidłowy pesel!\n";
         }
 
         if (errorMessage.length() == 0) {

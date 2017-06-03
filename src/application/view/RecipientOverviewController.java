@@ -2,7 +2,9 @@ package application.view;
 
 import application.MainApp;
 import application.model.serviceCenter.RecipientOfService;
+import application.model.serviceCenter.ServiceWorkshop;
 import application.model.serviceCenter.Shop;
+import application.model.serviceCenter.TransportCompany;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -45,7 +47,7 @@ public class RecipientOverviewController {
         if (recipient != null) {
             idLabel.setText(String.valueOf(recipient.getId()));
             nameLabel.setText(recipient.getName());
-            typeLabel.setText(String.valueOf(recipient.getClass().getName()));
+            typeLabel.setText(String.valueOf(recipient.getClass().getSimpleName()));
         }
         else {
             nameLabel.setText("");
@@ -76,10 +78,20 @@ public class RecipientOverviewController {
      */
     @FXML
     private void handleNewRecipient() {
-        RecipientOfService tmpRecipient = new Shop(null);
+        RecipientOfService tmpRecipient = new RecipientOfService();
         boolean okClicked = mainApp.showRecipientEditDialog(tmpRecipient);
         if (okClicked) {
-            mainApp.getRecipientData().add(tmpRecipient);
+            switch (tmpRecipient.getTypeID()) {
+                case 0:
+                    mainApp.getRecipientData().add(new Shop(tmpRecipient.getName()));
+                    break;
+                case 1:
+                    mainApp.getRecipientData().add(new ServiceWorkshop(tmpRecipient.getName()));
+                    break;
+                case 2:
+                    mainApp.getRecipientData().add(new TransportCompany(tmpRecipient.getName()));
+                    break;
+            }
         }
     }
 

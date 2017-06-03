@@ -4,8 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 import application.model.bank.Bank;
+import application.model.bank.Customer;
 import application.model.serviceCenter.RecipientOfService;
 import application.model.serviceCenter.Shop;
+import application.model.serviceCenter.Transaction;
 import application.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -19,17 +21,18 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
+    private final String DATABASE_PATH = "/home/kamil/Projects/Java/somegui/database/"; // on windows use backslash
     private Stage primaryStage;
     private BorderPane rootLayout;
 
     private ObservableList<Bank> bankData = FXCollections.observableArrayList();
     private ObservableList<RecipientOfService> recipientData = FXCollections.observableArrayList();
+    private ObservableList<Transaction> transactionData = FXCollections.observableArrayList();
 
 
     public MainApp() {
 
         readObjects();
-        recipientData.add(new Shop("myShop"));
 
     }
 
@@ -44,10 +47,16 @@ public class MainApp extends Application {
 
     private void readObjects() {
         try {
-            FileInputStream fin = new FileInputStream("/home/kamil/Projects/Java/somegui/banks.stored");
-            ObjectInputStream ois = new ObjectInputStream(fin);
-            ArrayList<Bank> list = (ArrayList<Bank>) ois.readObject();
-            bankData = FXCollections.observableArrayList(list);
+            FileInputStream fin1 = new FileInputStream(DATABASE_PATH + "banks.stored");
+            FileInputStream fin2 = new FileInputStream(DATABASE_PATH + "recipients.stored");
+
+            ObjectInputStream ois = new ObjectInputStream(fin1);
+            ArrayList<Bank> list1 = (ArrayList<Bank>) ois.readObject();
+            bankData = FXCollections.observableArrayList(list1);
+
+            ois = new ObjectInputStream(fin2);
+            ArrayList<RecipientOfService> list2 = (ArrayList<RecipientOfService>) ois.readObject();
+            recipientData = FXCollections.observableArrayList(list2);
         }
         catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -56,9 +65,15 @@ public class MainApp extends Application {
 
     private void saveObjects() {
         try {
-            FileOutputStream fout = new FileOutputStream("/home/kamil/Projects/Java/somegui/banks.stored");
-            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            FileOutputStream fout1 = new FileOutputStream(DATABASE_PATH + "banks.stored");
+            FileOutputStream fout2 = new FileOutputStream(DATABASE_PATH + "recipients.stored");
+
+            ObjectOutputStream oos = new ObjectOutputStream(fout1);
             oos.writeObject(new ArrayList<Bank>(bankData));
+
+            oos = new ObjectOutputStream(fout2);
+            oos.writeObject(new ArrayList<RecipientOfService>(recipientData));
+
             oos.close();
         }
         catch (IOException e) {
@@ -89,8 +104,10 @@ public class MainApp extends Application {
         }
     }
 
+
+
     /**
-     * Shows the person overview inside the root layout.
+     * Shows the bank overview inside the root layout.
      */
     public void showBankOverview() {
         try {
@@ -101,6 +118,23 @@ public class MainApp extends Application {
 
             BankOverviewController controller = loader.getController();
             controller.setMainApp(this);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showCustomerOverview(Bank bank) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CustomerOverview.fxml"));
+            AnchorPane customerOverview = loader.load();
+            rootLayout.setCenter(customerOverview);
+
+            CustomerOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setBank(bank);
+            controller.addCustomers(FXCollections.observableArrayList(bank.getCustomers()));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -141,6 +175,37 @@ public class MainApp extends Application {
             BankEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setBank(bank);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showCustomerEditDialog(Customer customer) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CustomerEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edytuj klienta");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            CustomerEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCustomer(customer);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -199,6 +264,10 @@ public class MainApp extends Application {
 
     public ObservableList<RecipientOfService> getRecipientData() {
         return recipientData;
+    }
+
+    public ObservableList<Transaction> getTransactionData() {
+        return transactionData;
     }
 
     public static void main(String[] args) {

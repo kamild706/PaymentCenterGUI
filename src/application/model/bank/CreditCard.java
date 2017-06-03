@@ -1,7 +1,6 @@
 package application.model.bank;
 
 
-
 import application.model.exceptions.LoanLimitException;
 import application.model.serviceCenter.RecipientOfService;
 import application.model.serviceCenter.Transaction;
@@ -13,8 +12,8 @@ public class CreditCard extends Card implements Serializable {
 
     private Loan loan;
 
-    public CreditCard(Currencies currency, int prefix, int number) {
-        super(prefix, number);
+    public CreditCard(Currencies currency, int prefix, int number, Customer owner) {
+        super(prefix, number, owner);
         loan = new Loan(new BigDecimal(5000), currency);
     }
 
@@ -23,16 +22,13 @@ public class CreditCard extends Card implements Serializable {
     }
 
     @Override
-    public void charge(BigDecimal amount, RecipientOfService requester) throws LoanLimitException {
-        Transaction transaction = new Transaction(amount, requester);
-
+    public void charge(BigDecimal amount) throws LoanLimitException {
         try {
             loan.charge(amount);
         }
         catch (LoanLimitException e) {
             throw e;
         }
-        addTransaction(transaction);
     }
 
     public void resetBalance() {

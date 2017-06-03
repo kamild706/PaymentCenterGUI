@@ -44,6 +44,7 @@
             </GridPane>
             <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="10">
                 <buttons>
+                    <Button mnemonicParsing="false" prefWidth="150" onAction="#handleShowCustomers" text="Pokaż klientów" />
                     <Button mnemonicParsing="false" prefWidth="150" onAction="#handleNewBank" text="Dodaj nowy" />
                     <Button mnemonicParsing="false" prefWidth="150" onAction="#handleEditBank" text="Edytuj" />
                     <Button mnemonicParsing="false" prefWidth="150" onAction="#handleDeleteBank" text="Usuń" />

@@ -7,4 +7,9 @@ public class TransportCompany extends RecipientOfService implements Serializable
     public TransportCompany(String name) {
         super(name);
     }
+
+    @Override
+    public String getTypeName() {
+        return "Firma transportowa";
+    }
 }

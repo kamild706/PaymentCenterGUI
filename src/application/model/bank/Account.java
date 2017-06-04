@@ -15,6 +15,10 @@ public class Account implements Serializable {
     private BigDecimal balance;
     private Currency currency;
 
+    public String getCurrencySymbol() {
+        return currency.getSymbol();
+    }
+
     /**
      * Sets new account balance.
      * @param balance  

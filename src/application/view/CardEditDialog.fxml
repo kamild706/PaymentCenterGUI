@@ -32,5 +32,9 @@
             <Button mnemonicParsing="false" onAction="#handleOk" prefWidth="100" text="OK"/>
             <Button mnemonicParsing="false" onAction="#handleCancel" prefWidth="100" text="Anuluj"/>
         </buttons>
-    </ButtonBar>
+    </ButtonBar><ButtonBar AnchorPane.bottomAnchor="50" AnchorPane.rightAnchor="10">
+    <buttons>
+        <Button mnemonicParsing="false" onAction="#resetCardBalance" prefWidth="210" text="Skasuj obciążenie karty"/>
+    </buttons>
+</ButtonBar>
 </AnchorPane>

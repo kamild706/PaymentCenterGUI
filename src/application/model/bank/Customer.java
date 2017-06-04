@@ -102,4 +102,8 @@ public class Customer implements Serializable {
     public void setCards(ArrayList<Card> cards) {
         this.cards = cards;
     }
+
+    public String getFullName() {
+        return name.get() + " " + lastname.get();
+    }
 }

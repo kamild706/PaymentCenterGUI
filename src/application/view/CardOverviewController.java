@@ -106,6 +106,7 @@ public class CardOverviewController {
         Card tmpCard = new AtmCard();
         boolean okClicked = mainApp.showCardEditDialog(tmpCard);
         if (okClicked) {
+            tmpCard.setCardOwner(customer);
             customer.addCard(tmpCard);
             mainApp.showCardOverview(customer);
         }
@@ -116,6 +117,7 @@ public class CardOverviewController {
         Card tmpCard = new DebitCard();
         boolean okClicked = mainApp.showCardEditDialog(tmpCard);
         if (okClicked) {
+            tmpCard.setCardOwner(customer);
             customer.addCard(tmpCard);
             mainApp.showCardOverview(customer);
         }
@@ -126,6 +128,7 @@ public class CardOverviewController {
         Card tmpCard = new CreditCard();
         boolean okClicked = mainApp.showCardEditDialog(tmpCard);
         if (okClicked) {
+            tmpCard.setCardOwner(customer);
             customer.addCard(tmpCard);
             mainApp.showCardOverview(customer);
         }

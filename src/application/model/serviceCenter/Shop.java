@@ -9,7 +9,8 @@ public class Shop extends RecipientOfService implements Serializable {
         super(name);
     }
 
-    public Shop() {
-        this(null);
+    @Override
+    public String getTypeName() {
+        return "Sklep";
     }
 }

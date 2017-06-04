@@ -62,4 +62,5 @@ public abstract class Card implements Serializable {
     public abstract String getMoney();
     public abstract void setMoney(String money);
     public abstract void setCurrency(Currencies currency);
+    public abstract String getCurrencySymbol();
 }

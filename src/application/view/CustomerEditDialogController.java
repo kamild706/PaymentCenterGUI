@@ -96,7 +96,7 @@ public class CustomerEditDialogController {
         if (lastnameField.getText() == null || lastnameField.getText().length() == 0) {
             errorMessage += "Nieprawidłowe nazwisko!\n";
         }
-        if (peselField.getText() == null || peselField.getText().length() == 0) {
+        if (peselField.getText() == null || !peselField.getText().matches("[0-9]{11}")) {
             errorMessage += "Nieprawidłowy pesel!\n";
         }
 

@@ -25,7 +25,7 @@ public class RootLayoutController {
 
     @FXML
     private void handleShowTransactions() {
-
+        mainApp.showTransactionOverview();
     }
 
     @FXML

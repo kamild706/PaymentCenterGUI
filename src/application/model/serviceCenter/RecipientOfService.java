@@ -45,4 +45,8 @@ public class RecipientOfService implements Serializable {
     public void setName(String name) {
         this.name.set(name);
     }
+
+    public String getTypeName() {
+        return null;
+    }
 }

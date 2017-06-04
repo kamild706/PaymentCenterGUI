@@ -169,6 +169,21 @@ public class MainApp extends Application {
         }
     }
 
+    public void showTransactionOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/TransactionOverview.fxml"));
+            AnchorPane transactionOverview = loader.load();
+            rootLayout.setCenter(transactionOverview);
+
+            TransactionOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void showRecipientOverview() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -364,6 +379,7 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
 
     public void chargeCard(String cardNumber, String money, RecipientOfService ros)
             throws CardNotFoundException, FundsException, PaymentRefusedException {

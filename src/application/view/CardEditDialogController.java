@@ -1,10 +1,12 @@
 package application.view;
 
 import application.model.bank.Card;
+import application.model.bank.CreditCard;
 import application.model.bank.Currencies;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
@@ -111,8 +113,8 @@ public class CardEditDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (balanceField.getText() == null || balanceField.getText().length() == 0) {
-            errorMessage += "Nieprawidłowe imię!\n";
+        if (balanceField.getText() == null || !balanceField.getText().matches("[0-9]+([.][0-9]{2})?")) {
+            errorMessage += "Nieprawidłowa kwota!\n";
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -127,6 +129,21 @@ public class CardEditDialogController {
             alert.showAndWait();
 
             return false;
+        }
+    }
+
+    public void resetCardBalance() {
+        if (card instanceof CreditCard) {
+            ((CreditCard) card).resetBalance();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle("Nieprawidłowa operacja");
+            alert.setHeaderText("Niedozwolona akcja");
+            alert.setContentText("Wyzerować można tylko\nocbiążenie karty kredytowej");
+
+            alert.showAndWait();
         }
     }
 }

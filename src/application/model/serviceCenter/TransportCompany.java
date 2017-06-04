@@ -8,6 +8,10 @@ public class TransportCompany extends RecipientOfService implements Serializable
         super(name);
     }
 
+    /**
+     * 
+     * @return ALways "Firma transportowa"
+     */
     @Override
     public String getTypeName() {
         return "Firma transportowa";

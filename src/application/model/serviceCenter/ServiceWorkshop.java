@@ -9,6 +9,10 @@ public class ServiceWorkshop extends RecipientOfService implements Serializable 
         super(name);
     }
 
+    /**
+     * 
+     * @return Always "Zak≥ad us≥og"
+     */
     @Override
     public String getTypeName() {
         return "Zak≈Çad us≈Çug";

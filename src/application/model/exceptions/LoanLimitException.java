@@ -1,6 +1,9 @@
 package application.model.exceptions;
 
-
+/**
+ * Thrown when charged money eceeds loan limit. 
+ * 
+ */
 public class LoanLimitException extends FundsException {
 
     public LoanLimitException() {

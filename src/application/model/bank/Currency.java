@@ -3,6 +3,9 @@ package application.model.bank;
 
 import java.io.Serializable;
 
+/**
+ * Graphical symbols of currencies.
+ */
 public class Currency implements Serializable {
 
     Currencies currency;

@@ -1,7 +1,7 @@
 package application.model.exceptions;
 
 /**
- * Created by kamil on 6/3/17.
+ * Thrown when searched card is not found.
  */
 public class CardNotFoundException extends Exception {
 

@@ -8,6 +8,11 @@ import java.io.Serializable;
 
 public class AtmCard extends DebitCard implements Serializable {
 
+    /**
+     * 
+     * @param currency Currency of account to which card is connected
+     * @param owner Refrence to customer to which card belongs 
+     */
     public AtmCard(Currencies currency, Customer owner) {
         super(currency, owner);
     }
@@ -16,6 +21,10 @@ public class AtmCard extends DebitCard implements Serializable {
         this(null, null);
     }
 
+    /**
+     * 
+     * @return Type of card to be displayed
+     */
     @Override
     public StringProperty getType() {
         return new MySimpleStringProperty("Karta bankomatowa");

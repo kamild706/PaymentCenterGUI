@@ -1,6 +1,9 @@
 package application.model.exceptions;
 
-
+/**
+ * general founds exception.
+ * 
+ */
 public class FundsException extends Exception {
 
     public FundsException() {

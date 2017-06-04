@@ -1,6 +1,10 @@
 package application.model.exceptions;
 
 
+/**
+ * Thrown when bank refuses transaction.
+ * 
+ */
 public class PaymentRefusedException extends Exception {
 
     public PaymentRefusedException() {

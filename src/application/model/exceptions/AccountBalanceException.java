@@ -1,6 +1,9 @@
 package application.model.exceptions;
 
-
+/**
+ * Exception thrown in case of insufficient acount founds.
+ * 
+ */
 public class AccountBalanceException extends FundsException {
 
     public AccountBalanceException() {

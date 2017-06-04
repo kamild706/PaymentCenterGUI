@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Random;
 
+/**
+ * Abstract card class.
+ */
 public abstract class Card implements Serializable {
 
     private StringProperty cardNumber;
@@ -19,19 +22,35 @@ public abstract class Card implements Serializable {
         return cardNumber.get();
     }
 
+    /**
+     * Used for displaying card number.
+     * @return 
+     */
     public StringProperty getCardNumberProperty() {
         return cardNumber;
     }
 
+    /**
+     * 
+     * @return Reference to card owner
+     */
     public Customer getCardOwner() {
         return cardOwner;
     }
 
+    /**
+     * 
+     * @param owner Reference to created card owner
+     */
     public Card(Customer owner) {
         cardOwner = owner;
         cardNumber = new MySimpleStringProperty(String.valueOf(new Random().nextInt(90000000) + 10000000));
     }
 
+    /**
+     * Changes card owner.
+     * @param customer Reference to card owner
+     */
     public void setCardOwner(Customer customer) {
         cardOwner = customer;
     }

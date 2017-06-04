@@ -62,7 +62,7 @@ public class DebitCard extends Card implements Serializable {
 
     /**
      * As debit cards have no limit of stored money albays "-" is returned.
-     * @return "-"
+     * @return Always "-"
      */
     @Override
     public String getCardLimit() {

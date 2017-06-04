@@ -23,7 +23,7 @@ public class AtmCard extends DebitCard implements Serializable {
 
     /**
      * 
-     * @return Type of card to be displayed
+     * @return Always "Karta bankomatowa"
      */
     @Override
     public StringProperty getType() {

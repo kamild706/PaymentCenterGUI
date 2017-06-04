@@ -27,8 +27,8 @@ public class CreditCard extends Card implements Serializable {
     }
 
     /**
-     * 
-     * @param loan Amount of loaned money
+     * Sets amount of loaned money
+     * @param loan 
      */
     public void setLoan(BigDecimal loan) {
         this.loan.setLoan(loan);
@@ -51,7 +51,7 @@ public class CreditCard extends Card implements Serializable {
 
     /**
      * Used for dilplaying card type
-     * @return "Karta Kredytowa"
+     * @return Always "Karta Kredytowa"
      */
     @Override
     public StringProperty getType() {
@@ -78,13 +78,17 @@ public class CreditCard extends Card implements Serializable {
 
     /**
      * 
-     * @return Avalible founds
+     * @return Currency symbol
      */
     @Override
     public String getCurrencySymbol() {
         return loan.getCurrencySymbol();
     }
 
+    /**
+     * 
+     * @return Avalible founds
+     */
     @Override
     public String getMoney() {
         return loan.getLoan().toString();

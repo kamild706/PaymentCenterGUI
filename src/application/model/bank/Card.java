@@ -39,8 +39,8 @@ public abstract class Card implements Serializable {
     }
 
     /**
-     * 
-     * @param owner Reference to created card owner
+     * Signs card to owner.
+     * @param owner Reference to card owner
      */
     public Card(Customer owner) {
         cardOwner = owner;

@@ -35,6 +35,10 @@ public class Customer implements Serializable {
         return pesel.get();
     }
 
+    /**
+     * Used for displaying name.
+     * @return 
+     */
     public StringProperty getNameProperty() {
         return name;
     }
@@ -103,6 +107,10 @@ public class Customer implements Serializable {
         this.cards = cards;
     }
 
+    /**
+     * 
+     * @return Name and lastname
+     */
     public String getFullName() {
         return name.get() + " " + lastname.get();
     }

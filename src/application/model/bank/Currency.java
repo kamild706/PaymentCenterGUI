@@ -4,7 +4,7 @@ package application.model.bank;
 import java.io.Serializable;
 
 /**
- * Graphical symbols of currencies.
+ * Graphical symbols of currencies: PLN, USD, EUR, GBP.
  */
 public class Currency implements Serializable {
 

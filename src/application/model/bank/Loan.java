@@ -25,7 +25,7 @@ public class Loan implements Serializable {
     }
 
     /**
-     * Sets loan currency
+     * Sets loan currency.
      * @param currency 
      */
     public void setCurrency(Currencies currency) {
@@ -63,7 +63,7 @@ public class Loan implements Serializable {
 
     /**
      * 
-     * @return Balance with currency
+     * @return Balance with currency symbol
      */
     public String getBalanceWithCurrency() {
         return balance.toString() + currency.getSymbol();
@@ -79,7 +79,7 @@ public class Loan implements Serializable {
 
     /**
      * 
-     * @return Loaned money with currency
+     * @return Loaned money with currency symbol
      */
     public String getLoanWithCurrency() {
         return loan.toString() + currency.getSymbol();

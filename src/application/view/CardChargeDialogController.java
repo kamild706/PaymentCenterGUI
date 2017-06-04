@@ -105,10 +105,10 @@ public class CardChargeDialogController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (moneyField.getText() == null || moneyField.getText().length() == 0) {
+        if (moneyField.getText() == null || !moneyField.getText().matches("[0-9]+([.][0-9]{2})?")) {
             errorMessage += "Nieprawidłowa kwota!\n";
         }
-        if (cardNumberField.getText() == null || cardNumberField.getText().length() == 0) {
+        if (cardNumberField.getText() == null || !cardNumberField.getText().matches("[0-9]{8}")) {
             errorMessage += "Nieprawidłowy numer karty!\n";
         }
         if (errorMessage.length() == 0) {

@@ -68,4 +68,9 @@ public class DebitCard extends Card implements Serializable {
     public void setCurrency(Currencies currency) {
         account.setCurrency(currency);
     }
+
+    @Override
+    public String getCurrencySymbol() {
+        return account.getCurrencySymbol();
+    }
 }

@@ -27,7 +27,7 @@
         <VBox prefHeight="400.0" prefWidth="120.0">
             <Button onAction="#handleShowBanks" mnemonicParsing="false" prefWidth="120" text="Banki"/>
             <Button onAction="#handleShowRoS" mnemonicParsing="false" prefWidth="120" text="Przedsiębiorcy"/>
-            <Button mnemonicParsing="false" prefWidth="120" text="Transakcje"/>
+            <Button onAction="#handleShowTransactions" mnemonicParsing="false" prefWidth="120" text="Transakcje"/>
         </VBox>
     </left>
 </BorderPane>

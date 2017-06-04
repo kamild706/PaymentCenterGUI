@@ -51,6 +51,11 @@ public class CreditCard extends Card implements Serializable {
     }
 
     @Override
+    public String getCurrencySymbol() {
+        return loan.getCurrencySymbol();
+    }
+
+    @Override
     public String getMoney() {
         return loan.getLoan().toString();
     }

@@ -48,7 +48,7 @@ public class RecipientOverviewController {
         if (recipient != null) {
             idLabel.setText(String.valueOf(recipient.getId()));
             nameLabel.setText(recipient.getName());
-            typeLabel.setText(String.valueOf(recipient.getClass().getSimpleName()));
+            typeLabel.setText(recipient.getTypeName());
         }
         else {
             nameLabel.setText("");
